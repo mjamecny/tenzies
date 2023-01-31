@@ -11,15 +11,22 @@ const App = () => {
     return newDice
   }
 
+  // set state
   const [dice, setDice] = useState(allNewDice())
 
+  // generate dice elements
   const diceElements = dice.map((die, i) => (
     <Die key={i} value={die} />
   ))
 
+  const rollDice = () => {
+    setDice(allNewDice())
+  }
+
   return (
     <main>
       <div className="dice-container">{diceElements}</div>
+      <button onClick={rollDice}>Roll</button>
     </main>
   )
 }
