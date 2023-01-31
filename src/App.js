@@ -20,7 +20,13 @@ const App = () => {
   const [dice, setDice] = useState(allNewDice())
 
   const holdDice = (id) => {
-    console.log(id)
+    setDice(
+      dice.map((die) => {
+        return die.id === id
+          ? { ...die, isHeld: !die.isHeld }
+          : die
+      })
+    )
   }
 
   // generate dice elements
