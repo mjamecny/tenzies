@@ -56,6 +56,12 @@ const App = () => {
 
   useEffect(() => {
     console.log('Dice state changed')
+    const allHeld = dice.every((die) => die.isHeld === true)
+    const firstValue = dice[0].value
+    const allSameValue = dice.every(
+      (die) => die.value === firstValue
+    )
+    if (allHeld && allSameValue) console.log('You won')
   }, [dice])
 
   return (
