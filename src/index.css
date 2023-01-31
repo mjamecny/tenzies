@@ -4,6 +4,10 @@
   padding: 0;
 }
 
+html {
+  font-family: 'Inter', sans-serif;
+}
+
 body {
   background-color: #0b2434;
   padding: 20px;
@@ -14,4 +18,15 @@ main {
   height: 400px;
   max-width: 800px;
   border-radius: 5px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.dice-container {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 20px;
 }
