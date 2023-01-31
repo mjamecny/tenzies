@@ -1,5 +1,5 @@
 import Die from './components/Die'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { nanoid } from 'nanoid'
 
 const App = () => {
@@ -12,6 +12,7 @@ const App = () => {
     return newDice
   }
 
+  //generate new die
   const generateNewDie = () => {
     return {
       value: Math.floor(Math.random() * 6) + 1,
@@ -22,7 +23,9 @@ const App = () => {
 
   // set state
   const [dice, setDice] = useState(allNewDice())
+  const [tenzies, setTenzies] = useState(false)
 
+  // toggle isHeld property for die
   const holdDice = (id) => {
     setDice(
       dice.map((die) => {
@@ -50,6 +53,10 @@ const App = () => {
       })
     )
   }
+
+  useEffect(() => {
+    console.log('Dice state changed')
+  }, [dice])
 
   return (
     <main>
