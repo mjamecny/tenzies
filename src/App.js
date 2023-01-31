@@ -48,11 +48,16 @@ const App = () => {
   ))
 
   const rollDice = () => {
-    setDice(
-      dice.map((die) => {
-        return die.isHeld ? die : generateNewDie()
-      })
-    )
+    if (!tenzies) {
+      setDice(
+        dice.map((die) => {
+          return die.isHeld ? die : generateNewDie()
+        })
+      )
+    } else {
+      setTenzies(false)
+      setDice(allNewDice())
+    }
   }
 
   useEffect(() => {
