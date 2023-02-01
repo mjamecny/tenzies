@@ -19,12 +19,12 @@ const icons = [
 
 const Die = (props) => {
   const { value } = props
+
   const styles = {
     backgroundColor: props.isHeld ? '#59E391' : 'white',
   }
 
   const icon = icons.find((i) => i.id === value)
-  console.log(icon)
 
   return (
     <div>
@@ -37,14 +37,6 @@ const Die = (props) => {
       ) : null}
     </div>
   )
-
-  // <div
-  //   className="die-face"
-  //   style={styles}
-  //   onClick={props.holdDice}
-  // >
-  //   <h2 className="die-num">{props.value}</h2>
-  // </div>
 }
 
 export default Die

@@ -25,6 +25,17 @@ const App = () => {
   // set state
   const [dice, setDice] = useState(allNewDice())
   const [tenzies, setTenzies] = useState(false)
+  const [count, setCount] = useState(0)
+  const [startTime, setStartTime] = useState(
+    performance.now()
+  )
+  const [timeTaken, setTimeTaken] = useState(0)
+  const [bestScore, setBestScore] = useState(
+    () =>
+      parseFloat(
+        JSON.parse(localStorage.getItem('bestScore'))
+      ) || 20
+  )
 
   // toggle isHeld property for die
   const holdDice = (id) => {
@@ -54,21 +65,38 @@ const App = () => {
           return die.isHeld ? die : generateNewDie()
         })
       )
+      setCount((prevCount) => prevCount + 1)
     } else {
       setTenzies(false)
       setDice(allNewDice())
+      setCount(0)
+      setTimeTaken(0)
+      setStartTime(performance.now())
     }
   }
 
   useEffect(() => {
-    console.log('Dice state changed')
     const allHeld = dice.every((die) => die.isHeld === true)
     const firstValue = dice[0].value
     const allSameValue = dice.every(
       (die) => die.value === firstValue
     )
-    if (allHeld && allSameValue) setTenzies(true)
+    if (allHeld && allSameValue) {
+      const endTime = performance.now()
+      const timeTakenSec = (endTime - startTime) / 1000
+      const timeTaken = parseFloat(timeTakenSec.toFixed(2))
+      setTimeTaken(timeTaken)
+      setTenzies(true)
+
+      if (timeTaken < bestScore) {
+        setBestScore(timeTaken)
+      }
+    }
   }, [dice])
+
+  useEffect(() => {
+    localStorage.setItem('bestScore', bestScore)
+  }, [bestScore])
 
   return (
     <main>
@@ -79,6 +107,9 @@ const App = () => {
         freeze it at its current value between rolls.
       </p>
       <div className="dice-container">{diceElements}</div>
+      <p>Best score: {bestScore} seconds</p>
+      <p>Rolls: {count}</p>
+      {tenzies && <p>It took you: {timeTaken} seconds</p>}
       <button onClick={rollDice}>
         {tenzies ? 'New game' : 'Roll'}
       </button>
