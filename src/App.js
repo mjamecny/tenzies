@@ -26,24 +26,18 @@ const App = () => {
   const [dice, setDice] = useState(allNewDice())
   const [tenzies, setTenzies] = useState(false)
   const [count, setCount] = useState(0)
-  const [startTime, setStartTime] = useState(
-    performance.now()
-  )
+  const [startTime, setStartTime] = useState(performance.now())
   const [timeTaken, setTimeTaken] = useState(0)
   const [bestScore, setBestScore] = useState(
     () =>
-      parseFloat(
-        JSON.parse(localStorage.getItem('bestScore'))
-      ) || 20
+      parseFloat(JSON.parse(localStorage.getItem('bestScore'))) || 20
   )
 
   // toggle isHeld property for die
   const holdDice = (id) => {
     setDice(
       dice.map((die) => {
-        return die.id === id
-          ? { ...die, isHeld: !die.isHeld }
-          : die
+        return die.id === id ? { ...die, isHeld: !die.isHeld } : die
       })
     )
   }
@@ -78,9 +72,7 @@ const App = () => {
   useEffect(() => {
     const allHeld = dice.every((die) => die.isHeld === true)
     const firstValue = dice[0].value
-    const allSameValue = dice.every(
-      (die) => die.value === firstValue
-    )
+    const allSameValue = dice.every((die) => die.value === firstValue)
     if (allHeld && allSameValue) {
       const endTime = performance.now()
       const timeTakenSec = (endTime - startTime) / 1000
@@ -99,21 +91,23 @@ const App = () => {
   }, [bestScore])
 
   return (
-    <main>
+    <div className="container">
       {tenzies && <Confetti />}
-      <h1 className="title">Tenzies</h1>
-      <p className="instructions">
-        Roll until all dice are the same. Click each die to
-        freeze it at its current value between rolls.
-      </p>
-      <div className="dice-container">{diceElements}</div>
-      <p>Best score: {bestScore} seconds</p>
-      <p>Rolls: {count}</p>
-      {tenzies && <p>It took you: {timeTaken} seconds</p>}
-      <button onClick={rollDice}>
-        {tenzies ? 'New game' : 'Roll'}
-      </button>
-    </main>
+      <main>
+        <h1 className="title">Tenzies</h1>
+        <p className="instructions">
+          Roll until all dice are the same. Click each die to freeze
+          it at its current value between rolls.
+        </p>
+        <div className="dice-container">{diceElements}</div>
+        <p>Best score: {bestScore} seconds</p>
+        <p>Rolls: {count}</p>
+        {tenzies && <p>It took you: {timeTaken} seconds</p>}
+        <button onClick={rollDice}>
+          {tenzies ? 'New game' : 'Roll'}
+        </button>
+      </main>
+    </div>
   )
 }
 
