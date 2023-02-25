@@ -1,7 +1,7 @@
-import Die from './components/Die'
-import { useState, useEffect } from 'react'
-import { nanoid } from 'nanoid'
-import Confetti from 'react-confetti'
+import Die from "./components/Die"
+import { useState, useEffect } from "react"
+import { nanoid } from "nanoid"
+import Confetti from "react-confetti"
 
 const App = () => {
   // generate array of 10 numbers between 1-6
@@ -29,8 +29,7 @@ const App = () => {
   const [startTime, setStartTime] = useState(performance.now())
   const [timeTaken, setTimeTaken] = useState(0)
   const [bestScore, setBestScore] = useState(
-    () =>
-      parseFloat(JSON.parse(localStorage.getItem('bestScore'))) || 20
+    () => parseFloat(JSON.parse(localStorage.getItem("bestScore"))) || 20
   )
 
   // toggle isHeld property for die
@@ -87,7 +86,7 @@ const App = () => {
   }, [dice])
 
   useEffect(() => {
-    localStorage.setItem('bestScore', bestScore)
+    localStorage.setItem("bestScore", bestScore)
   }, [bestScore])
 
   return (
@@ -96,16 +95,14 @@ const App = () => {
       <main>
         <h1 className="title">Tenzies</h1>
         <p className="instructions">
-          Roll until all dice are the same. Click each die to freeze
-          it at its current value between rolls.
+          Roll until all dice are the same. Click each die to freeze it at its
+          current value between rolls.
         </p>
         <div className="dice-container">{diceElements}</div>
-        <p>Best score: {bestScore} seconds</p>
-        <p>Rolls: {count}</p>
+        <p className="score">Best score: {bestScore} seconds</p>
+        <p className="rolls">Rolls: {count}</p>
         {tenzies && <p>It took you: {timeTaken} seconds</p>}
-        <button onClick={rollDice}>
-          {tenzies ? 'New game' : 'Roll'}
-        </button>
+        <button onClick={rollDice}>{tenzies ? "New game" : "Roll"}</button>
       </main>
     </div>
   )
