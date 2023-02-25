@@ -101,7 +101,7 @@ const App = () => {
         <div className="dice-container">{diceElements}</div>
         <p className="score">Best score: {bestScore} seconds</p>
         <p className="rolls">Rolls: {count}</p>
-        {tenzies && <p>It took you: {timeTaken} seconds</p>}
+        {tenzies && <p className="result">It took you: {timeTaken} seconds</p>}
         <button onClick={rollDice}>{tenzies ? "New game" : "Roll"}</button>
       </main>
     </div>
